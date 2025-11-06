@@ -39,15 +39,36 @@ bool AC_above_threshold() {
     }
 }
 
+void LED_init() 
+{
+    PORTA.DIRSET = PIN2_bm;
+}
+void set_LED_on()
+{
+    PORTA.OUTCLR = PIN2_bm;
+}
+void set_LED_off()
+{
+    PORTA.OUTSET = PIN2_bm;
+}
+
 
 int main(void) {
     USART3_Init();
-    
     USART3_SendChar('s');
 
     AC_init();
     VREF_init();
 
+    LED_init();
+
+    while(true)
+    {
+            set_LED_on();
+            _delay_ms(1000);
+            set_LED_off();  
+            _delay_ms(1000);      
+    }
     
     return 0;
 }
